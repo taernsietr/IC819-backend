@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from "sequelize";
 import sequelize from "../db";
 
@@ -195,12 +194,13 @@ ClientModel.init(
 		},
 		cpf: {
 			type: DataTypes.STRING(11),
-			allowNull: false
+			allowNull: false,
+			unique: true
 		},
 		email: {
 			type: DataTypes.STRING(32), // TODO: confirmar tipo e tamanho
-			allowNull: false
-			// TODO: unique
+			allowNull: false,
+			unique: true
 		},
 		phone: {
 			type: DataTypes.STRING(11),
