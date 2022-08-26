@@ -45,11 +45,11 @@ async function createClient(req: createClientRequestType, res: Response) {
 		}
 
 		const newUser: ClientDataType = {
-			name: "",
-			cpf: "",
-			email: "",
-			phone: "",
-			passwordHash: "",
+			name: data.name,
+			cpf: data.cpf,
+			email: data.email,
+			phone: data.phone,
+			passwordHash: data.passwordHash,
 			token: ""
 		};
 
@@ -60,8 +60,6 @@ async function createClient(req: createClientRequestType, res: Response) {
 		});
 
 	} catch (e: unknown) {
-		// TODO: lidar com erro
-
 		res.status(500).send({
 			code: responseCodes.unknownInternalError,
 			error: e,
