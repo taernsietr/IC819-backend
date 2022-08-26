@@ -1,24 +1,48 @@
-import { Client } from "../../../models/client";
+import { Client, ClientModel } from "../../../models/client";
+import type { ClientDataType } from "../../../resources/types";
+import { responseCodes } from "../../../resources";
 
-import type { ClientDataType} from "../../../models/client";
+import { Response } from "express";
 
-import exceptions from "../../../resources/exceptions";
-const { EmptyDataException, InvalidDataException } = exceptions;
+type createClientRequestType = {
+	body: {
+		data: ClientDataType
+	}
+}
 
 // add req/res
-async function createClient(clientData: ClientDataType ) {
+async function createClient(req: createClientRequestType, res: Response) {
 	try {
-		// TODO: verificar se nada é nulo
-		if (Client.isDataNull(clientData)) {
-			// throw  
-			
-		}
-		
-		// TODO: verificar se são válidos
-		Client.isDataValid(clientData);
+		const { data } = req.body;
 
-		// TODO: verificar se os dados únicos não existem no bd
-		Client.doesUniqueDataAlreadyExists({ cpf: clientData.cpf, email: clientData.email });
+		// validar os dados
+		if (!Client.isNameValid(data?.name) || !Client.isCpfValid(data?.cpf) || !Client.isEmailValid(data?.email) || !Client.isPhoneNumberValid(data?.phone)) {
+			res.status(400).send({
+				code: responseCodes.invalidData,
+			});
+		}
+
+		const cpfAlreadyExists = await Client.getByCpf(data.cpf);
+		const emailAlreadyExists = await Client.getByEmail(data.email);
+
+		if (cpfAlreadyExists.code !== responseCodes.success || cpfAlreadyExists.result instanceof ClientModel) {
+			res.status(400).send({
+				code: responseCodes.duplicatedUniqueData.cpf,
+			});
+		}
+
+		if (emailAlreadyExists.code !== responseCodes.success || emailAlreadyExists.result instanceof ClientModel) {
+			res.status(400).send({
+				code: responseCodes.duplicatedUniqueData.email,
+			});
+		}
+
+		if (!data?.passwordHash) {
+			res.status(400).send({
+				code: responseCodes.emptyData,
+				message: "Hash da senha não encontrado"
+			});
+		}
 
 		const newUser: ClientDataType = {
 			name: "",
@@ -26,15 +50,22 @@ async function createClient(clientData: ClientDataType ) {
 			email: "",
 			phone: "",
 			passwordHash: "",
-			addressID: "",
 			token: ""
 		};
 
-		// TODO: criar usuário
 		Client.createClient(newUser);
 
-	} catch (error) {
-		// throw error;
+		res.status(201).send({
+			code: responseCodes.created,
+		});
+
+	} catch (e: unknown) {
+		// TODO: lidar com erro
+
+		res.status(500).send({
+			code: responseCodes.unknownInternalError,
+			error: e,
+		});
 	}
 }
 
