@@ -1,3 +1,4 @@
+// TODO: procurar regras pra nome
 export default function nameValidation(name: string) {
 	// validação de nome
 	name.trim();

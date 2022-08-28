@@ -1,17 +1,17 @@
-import { Client, ClientModel } from "../../../models/client";
-import type { ClientDataType } from "../../../resources/types";
-import { responseCodes } from "../../../resources";
+// import { Client, ClientModel } from "../../../models/client";
+// import { responseCodes } from "../../../resources";
+// import type { Response } from "express";
 
-import { Response } from "express";
+// // tipos
+// import type { ClientDataType, createClientRequestType } from "../../../resources/types";
 
-type createClientRequestType = {
-	body: {
-		data: ClientDataType
-	}
-}
+const { Client, ClientModel } = require("../../../models/client");
+const { responseCodes } = require("../../../resources");
+const { Response } = require("express");
+const { ClientDataType, createClientRequestType } = require("../../../resources/types");
 
 // add req/res
-async function createClient(req: createClientRequestType, res: Response) {
+async function createClient(req: typeof createClientRequestType, res: typeof Response) {
 	try {
 		const { data } = req.body;
 
@@ -44,7 +44,7 @@ async function createClient(req: createClientRequestType, res: Response) {
 			});
 		}
 
-		const newUser: ClientDataType = {
+		const newUser: typeof ClientDataType = {
 			name: data.name,
 			cpf: data.cpf,
 			email: data.email,
@@ -53,10 +53,12 @@ async function createClient(req: createClientRequestType, res: Response) {
 			token: ""
 		};
 
-		Client.createClient(newUser);
+		const createdUser = newUser; // enquanto o bd não está funcionando usar essa linha
+		// const createdUser = await Client.createClient(newUser);
 
 		res.status(201).send({
 			code: responseCodes.created,
+			result: createdUser,
 		});
 
 	} catch (e: unknown) {
@@ -67,9 +69,6 @@ async function createClient(req: createClientRequestType, res: Response) {
 	}
 }
 
-const userController = {
+export {
 	createClient,
-
-};
-
-export default userController;
+}

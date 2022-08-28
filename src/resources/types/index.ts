@@ -13,3 +13,9 @@ export type responseType = {
 	result?: unknown,
 	error?: unknown,
 }
+
+export type createClientRequestType = {
+	body: {
+		data: ClientDataType
+	}
+}

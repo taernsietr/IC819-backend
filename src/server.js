@@ -12,7 +12,7 @@ if (result.error) {
 	throw result.error;
 }
 
-const port = process.env.SERVER_PORT;
+const port = process.env.SERVER_PORT || 5000;
 
 server.use(express.json());
 
