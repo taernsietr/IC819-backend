@@ -1,9 +1,21 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from "sequelize";
 import sequelize from "../db";
 
+import type { OperatorDataType } from "../resources/types";
+
+
 import { Order } from "./order";
 
-export class Operator extends Model<InferAttributes<Operator>, InferCreationAttributes<Operator>> {
+export const Operator = {
+	crateOperator: async (operatorData: OperatorDataType) => {
+		const createdUser = await OperatorModel.create({
+			operatorType: operatorData.operatorType
+		});
+
+		return createdUser;
+	},
+}
+export class OperatorModel extends Model<InferAttributes<OperatorModel>, InferCreationAttributes<OperatorModel>> {
 	declare id: string;
 	declare operatorType: string;
 
@@ -11,7 +23,7 @@ export class Operator extends Model<InferAttributes<Operator>, InferCreationAttr
 	declare updatedAt: CreationOptional<Date>;
 }
 
-Operator.init(
+OperatorModel.init(
 	{
 		id: {
 			type: DataTypes.UUID,
@@ -31,4 +43,4 @@ Operator.init(
 	}
 );
 
-Operator.hasMany(Order);
+OperatorModel.hasMany(Order);

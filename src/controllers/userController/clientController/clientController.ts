@@ -61,10 +61,10 @@ async function createClient(req: typeof createClientRequestType, res: typeof Res
 			result: createdUser,
 		});
 
-	} catch (e: unknown) {
+	} catch (error: unknown) {
 		res.status(500).send({
 			code: responseCodes.unknownInternalError,
-			error: e,
+			error: error,
 		});
 	}
 }
