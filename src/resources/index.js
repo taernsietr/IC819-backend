@@ -11,9 +11,6 @@ import nameValidation from "./validations/nameValidation";
 // padões de respostas
 import codes from "./responseCodes/responseCodes";
 
-// tipos
-import t from "./types";
-
 export const auth = {
 	generateAccessToken,
 	...checkUserAuth,
@@ -28,9 +25,4 @@ export const validations = {
 
 export const responseCodes = {
 	...codes,
-};
-
-
-export const types = {
-	...t,
 };

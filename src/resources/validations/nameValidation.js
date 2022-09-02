@@ -1,9 +1,9 @@
 // TODO: procurar regras pra nome
-export default function nameValidation(name: string) {
+export default function nameValidation(name) {
 	// validação de nome
 	name.trim();
 
-	if(name == null) {
+	if (name == null) {
 		return false;
 	}
 
