@@ -1,5 +1,5 @@
-import { responseCodes } from "../../resources";
-import { Client, ClientModel } from "../../models/client";
+import { responseCodes } from "../resources";
+import { Client, ClientModel } from "../models/client";
 
 async function createClient(req, res) {
 	try {
