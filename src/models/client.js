@@ -1,5 +1,8 @@
+import Sequelize from "sequelize";
+import db from "../db";
 import { validations } from "../resources";
 
+// TODO: sequelize
 export const ClientModel = {};
 
 export const Client = {

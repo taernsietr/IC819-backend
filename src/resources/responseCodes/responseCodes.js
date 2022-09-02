@@ -9,7 +9,7 @@ const responseCodes = {
 	emptyData: "EMPTY_DATA",
 	duplicatedUniqueData: {
 		cpf: "DUPLICATED_CPF",
-		email: "DUPLICATED_EMAIL"
+		email: "DUPLICATED_EMAIL",
 	},
 };
 

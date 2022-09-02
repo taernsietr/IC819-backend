@@ -13,10 +13,10 @@ export default function cpfValidation(cpf) {
 	cpf = cpf.toString().replace(/[^\d]+/g, "");
 
 	// verificar o tamanho e o tipo do valor
-	if (isNaN(cpf) || cpf.length != 11) return false;
+	if (cpf.isNaN() || cpf.length !== 11) return false;
 
 	// descartar uma possibilidade inválida
-	if (cpf == "00000000000") return false;
+	if (cpf === "00000000000") return false;
 
 	// validação do penúltimo dígito
 	let secondToLastDigit = 0;
@@ -31,9 +31,9 @@ export default function cpfValidation(cpf) {
 	secondToLastDigit *= 10;
 	secondToLastDigit %= 11;
 
-	if (secondToLastDigit == 10) secondToLastDigit = 0;
+	if (secondToLastDigit === 10) secondToLastDigit = 0;
 
-	if (secondToLastDigit.toString() != cpf[9]) return false;
+	if (secondToLastDigit.toString() !== cpf[9]) return false;
 
 	// validação do último dígito
 	i = 11;
@@ -46,9 +46,9 @@ export default function cpfValidation(cpf) {
 	lastDigit *= 10;
 	lastDigit %= 11;
 
-	if (lastDigit == 10) lastDigit = 0;
+	if (lastDigit === 10) lastDigit = 0;
 
-	if (lastDigit.toString() != cpf[10]) return false;
+	if (lastDigit.toString() !== cpf[10]) return false;
 
 	return true;
 }
