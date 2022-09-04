@@ -1,15 +1,15 @@
 // autenticações
-import generateAccessToken from "./auth/generateAccessToken";
-import checkUserAuth from "./auth/checkUserAuth";
+import generateAccessToken from "./auth/generateAccessToken.js";
+import checkUserAuth from "./auth/checkUserAuth.js";
 
 // validações
-import cpfValidation from "./validations/cpfValidation";
-import emailValidation from "./validations/emailValidation";
-import phoneNumberValidation from "./validations/phoneNumberValidation";
-import nameValidation from "./validations/nameValidation";
+import cpfValidation from "./validations/cpfValidation.js";
+import emailValidation from "./validations/emailValidation.js";
+import phoneValidation from "./validations/phoneValidation.js";
+import nameValidation from "./validations/nameValidation.js";
 
 // padões de respostas
-import codes from "./responseCodes/responseCodes";
+import codes from "./responseCodes/responseCodes.js";
 
 export const auth = {
 	generateAccessToken,
@@ -18,7 +18,7 @@ export const auth = {
 
 export const validations = {
 	emailValidation,
-	phoneNumberValidation,
+	phoneValidation,
 	cpfValidation,
 	nameValidation,
 };

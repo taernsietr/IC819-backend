@@ -8,15 +8,26 @@
 // depois, pegar o resultado, multiplicar por 10 e dividir por 11
 // o resto dessa segunda parte parte deve ser igual ao último dígito.
 
-export default function cpfValidation(cpf) {
+export default function isCpfValid(cpf) {
+	console.log(`[cpfValidation] cpf = ${cpf}`);
+
 	// retirar caracteres inválidos
 	cpf = cpf.toString().replace(/[^\d]+/g, "");
 
+	console.log(`[cpfValidation] (depois) cpf = ${cpf}`);
+
 	// verificar o tamanho e o tipo do valor
-	if (cpf.isNaN() || cpf.length !== 11) return false;
+	// eslint-disable-next-line no-restricted-globals
+	if (isNaN(cpf) || cpf.length !== 11) {
+		console.log("[cpfValidation] cpf.isNaN() || cpf.length !== 11");
+		return false;
+	}
 
 	// descartar uma possibilidade inválida
-	if (cpf === "00000000000") return false;
+	if (cpf === "00000000000") {
+		console.log("[cpfValidation] cpf === 00000000000");
+		return false;
+	}
 
 	// validação do penúltimo dígito
 	let secondToLastDigit = 0;
@@ -33,7 +44,10 @@ export default function cpfValidation(cpf) {
 
 	if (secondToLastDigit === 10) secondToLastDigit = 0;
 
-	if (secondToLastDigit.toString() !== cpf[9]) return false;
+	if (secondToLastDigit.toString() !== cpf[9]) {
+		console.log("[cpfValidation] secondToLastDigit.toString() !== cpf[9]");
+		return false;
+	}
 
 	// validação do último dígito
 	i = 11;
@@ -48,7 +62,12 @@ export default function cpfValidation(cpf) {
 
 	if (lastDigit === 10) lastDigit = 0;
 
-	if (lastDigit.toString() !== cpf[10]) return false;
+	if (lastDigit.toString() !== cpf[10]) {
+		console.log("[cpfValidation] lastDigit.toString() !== cpf[10]");
+		return false;
+	}
+
+	console.log("[cpfValidation] cpf válido!");
 
 	return true;
 }

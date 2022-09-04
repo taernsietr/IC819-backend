@@ -1,5 +1,5 @@
-import { Operator, OperatorModel } from "../models/operator";
-import { responseCodes } from "../resources";
+import { Operator, OperatorModel } from "../models/operator.js";
+import { responseCodes } from "../resources/index.js";
 
 async function createOperator(req, res) {
 	try {

@@ -36,6 +36,7 @@
                 "ignoreStrings": true,
                 "ignoreComments": true
             }
-        ]
+        ],
+        "import/extensions": "off"
     }
 }

@@ -1,6 +1,6 @@
 import Sequelize from "sequelize";
-import db from "../db";
-import { validations } from "../resources";
+import db from "../db.js";
+import { validations } from "../resources/index.js";
 
 // TODO: sequelize
 export const deliveryCompanyModel = {};

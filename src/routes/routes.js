@@ -1,7 +1,6 @@
 import { Router } from "express";
-
-import { createClient } from "../controllers/clientController/clientController";
-import { createOperator } from "../controllers/operatorController/operatorController";
+import { createClient } from "../controllers/clientController.js";
+import { createOperator } from "../controllers/operatorController.js";
 
 const router = Router();
 
@@ -10,3 +9,5 @@ router.post("/cliente/cadastrar", createClient);
 
 // Acessáveis apenas por certos usuários
 router.post("/operador/cadastrar", createOperator); // TODO: colocar camada de autenticação
+
+export default router;

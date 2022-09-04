@@ -1,91 +1,11 @@
 import Sequelize from "sequelize";
-import db from "../db";
-import { validations } from "../resources";
+import db from "../db.js";
+import { validations } from "../resources/index.js";
 
 // TODO: sequelize
 export const ClientModel = {};
 
 export const Client = {
-	isNameValid: (name) => {
-		// validar nome
-		if (name === null || !name) {
-			return false;
-		}
-
-		name = name.trim();
-
-		if (name === "") {
-			return false;
-		}
-
-		if (!validations.nameValidation(name)) {
-			return false;
-		}
-
-		return true;
-	},
-
-	isCpfValid: (cpf) => {
-		// validar cpf
-		if (cpf === null || !cpf) {
-			return false;
-		}
-
-		cpf = cpf.trim();
-
-		if (cpf === "") {
-			return false;
-		}
-
-		if (!validations.cpfValidation(cpf)) {
-			return false;
-		}
-
-		return true;
-	},
-
-	isEmailValid: (email) => {
-		// validar email
-		if (email === null || !email) {
-			return false;
-		}
-
-		email = email.trim();
-
-		if (email === "") {
-			return false;
-		}
-
-		if (!validations.emailValidation(email)) {
-			return false;
-		}
-
-		return true;
-	},
-
-	isPhoneNumberValid: (phoneNumber) => {
-		// validar número de telefone
-		if (phoneNumber === null || !phoneNumber) {
-			return false;
-		}
-
-		phoneNumber = phoneNumber.trim();
-
-		if (phoneNumber === "") {
-			return false;
-		}
-
-		if (!validations.phoneNumberValidation(phoneNumber)) {
-			return false;
-		}
-
-		return true;
-	},
-
-	isPasswordHashValid: (passHash) => {
-		// TODO: verificar se o hash é válido
-	},
-
 	createClient: async (data) => {
 		const createdUser = await	ClientModel.create({
 			name: data.name,
@@ -114,7 +34,7 @@ export const Client = {
 
 		cpf = cpf.trim();
 
-		if (!Client.isCpfValid(cpf)) {
+		if (!validations.cpfValidation(cpf)) {
 			console.log("[getByCpf] cpf é inválido");
 			res.code = "INVALID_DATA";
 			return res;
@@ -146,7 +66,7 @@ export const Client = {
 
 		email = email.trim();
 
-		if (!Client.isEmailValid(email)) {
+		if (!validations.emailValidation(email)) {
 			console.log("[getByEmail] email é inválido");
 			res.code = "INVALID_DATA";
 			return res;

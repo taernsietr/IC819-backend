@@ -1,23 +1,44 @@
-import { responseCodes } from "../resources";
-import { Client, ClientModel } from "../models/client";
+/* eslint-disable max-len */
+import { responseCodes, validations } from "../resources/index.js";
+import { Client, ClientModel } from "../models/client.js";
 
 async function createClient(req, res) {
 	try {
-		const { data } = req.body;
+		const {
+			cpf,
+			name,
+			email,
+			phone,
+			passwordHash,
+		} = req.body;
+
+		console.log(`[clientController:createClient] cpf = ${cpf}`);
+		console.log(`[clientController:createClient] name = ${name}`);
+		console.log(`[clientController:createClient] email = ${email}`);
+		console.log(`[clientController:createClient] phone = ${phone}`);
+		console.log(`[clientController:createClient] passwordHash = ${passwordHash}`);
 
 		// validar os dados
 		if (
-			!Client.isNameValid(data?.name)
-			|| !Client.isCpfValid(data?.cpf)
-			|| !Client.isEmailValid(data?.email)
-			|| !Client.isPhoneNumberValid(data?.phone)) {
+			!validations.cpfValidation(cpf)
+			|| !validations.nameValidation(name)
+			|| !validations.emailValidation(email)
+			|| !validations.phoneValidation(phone)
+		) {
+			console.log(`[clientController:createClient] cpfValidation = ${validations.cpfValidation(cpf)}`);
+			console.log(`[clientController:createClient] nameValidation = ${validations.nameValidation(name)}`);
+			console.log(`[clientController:createClient] emailValidation = ${validations.emailValidation(email)}`);
+			console.log(`[clientController:createClient] phoneValidation = ${validations.phoneValidation(phone)}`);
 			res.status(400).send({
 				code: responseCodes.invalidData,
 			});
+			return;
 		}
 
-		const cpfAlreadyExists = await Client.getByCpf(data.cpf);
-		const emailAlreadyExists = await Client.getByEmail(data.email);
+		// enquanto não temos o sequelize essa parte não funciona
+		/*
+		const cpfAlreadyExists = await Client.getByCpf(cpf);
+		const emailAlreadyExists = await Client.getByEmail(email);
 
 		if (
 			cpfAlreadyExists.code !== responseCodes.success
@@ -25,6 +46,7 @@ async function createClient(req, res) {
 			res.status(400).send({
 				code: responseCodes.duplicatedUniqueData.cpf,
 			});
+			return;
 		}
 
 		if (
@@ -33,21 +55,24 @@ async function createClient(req, res) {
 			res.status(400).send({
 				code: responseCodes.duplicatedUniqueData.email,
 			});
+			return;
 		}
+		*/
 
-		if (!data?.passwordHash) {
+		if (!passwordHash) {
 			res.status(400).send({
 				code: responseCodes.emptyData,
 				message: "Hash da senha não encontrado",
 			});
+			return;
 		}
 
 		const newUser = {
-			name: data.name,
-			cpf: data.cpf,
-			email: data.email,
-			phone: data.phone,
-			passwordHash: data.passwordHash,
+			name,
+			cpf,
+			email,
+			phone,
+			passwordHash,
 			token: "",
 		};
 
@@ -58,7 +83,9 @@ async function createClient(req, res) {
 			code: responseCodes.created,
 			result: createdUser,
 		});
+		return;
 	} catch (error) {
+		console.log(`ERROR: ${error}`);
 		res.status(500).send({
 			code: responseCodes.unknownInternalError,
 			error,
@@ -68,5 +95,5 @@ async function createClient(req, res) {
 
 export {
 	createClient,
-	
+
 };
