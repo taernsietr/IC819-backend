@@ -33,8 +33,10 @@
         "max-len": [
             "error",
             {
+                "code": 90,
                 "ignoreStrings": true,
-                "ignoreComments": true
+                "ignoreComments": true,
+                "ignoreTrailingComments": true
             }
         ],
         "import/extensions": "off"

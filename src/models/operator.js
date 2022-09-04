@@ -16,7 +16,7 @@ export const Operator = {
 
 	isOperatorTypeValid: (operatorType) => {
 		// TODO: padronizar os valores dos tipos de operador
-		if (operatorType === "adm" || operatorType === "kitchen") {
+		if (operatorType === "ADM'" || operatorType === "KITCHEN") {
 			return true;
 		}
 

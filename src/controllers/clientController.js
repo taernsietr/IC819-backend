@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { responseCodes, validations } from "../resources/index.js";
 import { Client, ClientModel } from "../models/client.js";
 
@@ -12,11 +11,11 @@ async function createClient(req, res) {
 			passwordHash,
 		} = req.body;
 
-		console.log(`[clientController:createClient] cpf = ${cpf}`);
-		console.log(`[clientController:createClient] name = ${name}`);
-		console.log(`[clientController:createClient] email = ${email}`);
-		console.log(`[clientController:createClient] phone = ${phone}`);
-		console.log(`[clientController:createClient] passwordHash = ${passwordHash}`);
+		console.log(`[createClient] cpf = ${cpf}`);
+		console.log(`[createClient] name = ${name}`);
+		console.log(`[createClient] email = ${email}`);
+		console.log(`[createClient] phone = ${phone}`);
+		console.log(`[createClient] passwordHash = ${passwordHash}`);
 
 		// validar os dados
 		if (
@@ -25,10 +24,10 @@ async function createClient(req, res) {
 			|| !validations.emailValidation(email)
 			|| !validations.phoneValidation(phone)
 		) {
-			console.log(`[clientController:createClient] cpfValidation = ${validations.cpfValidation(cpf)}`);
-			console.log(`[clientController:createClient] nameValidation = ${validations.nameValidation(name)}`);
-			console.log(`[clientController:createClient] emailValidation = ${validations.emailValidation(email)}`);
-			console.log(`[clientController:createClient] phoneValidation = ${validations.phoneValidation(phone)}`);
+			console.log(`[createClient] cpfVal = ${validations.cpfValidation(cpf)}`);
+			console.log(`[createClient] nameVal = ${validations.nameValidation(name)}`);
+			console.log(`[createClient] emailVal =${validations.emailValidation(email)}`);
+			console.log(`[createClient] phoneVal =${validations.phoneValidation(phone)}`);
 			res.status(400).send({
 				code: responseCodes.invalidData,
 			});
@@ -62,7 +61,6 @@ async function createClient(req, res) {
 		if (!passwordHash) {
 			res.status(400).send({
 				code: responseCodes.emptyData,
-				message: "Hash da senha não encontrado",
 			});
 			return;
 		}
