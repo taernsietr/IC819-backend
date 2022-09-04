@@ -1,6 +1,7 @@
 // autenticações
 import generateAccessToken from "./auth/generateAccessToken.js";
 import checkUserAuth from "./auth/checkUserAuth.js";
+import { comparePasswordHash, decryptData, createPasswordHash } from "./auth/passwordHash.js";
 
 // validações
 import cpfValidation from "./validations/cpfValidation.js";
@@ -13,7 +14,10 @@ import codes from "./responseCodes/responseCodes.js";
 
 export const auth = {
 	generateAccessToken,
-	...checkUserAuth,
+	// ...checkUserAuth,
+	comparePasswordHash,
+	decryptData,
+	createPasswordHash,
 };
 
 export const validations = {
