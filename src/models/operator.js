@@ -1,9 +1,32 @@
-import Sequelize from "sequelize";
-import db from "../db.js";
+import { Model, DataTypes } from "sequelize";
+import sequelize from "../db.js";
 import { validations } from "../resources/index.js";
 
-// TODO: sequelize
-export const OperatorModel = {};
+export class OperatorModel extends Model {}
+
+OperatorModel.init(
+	{
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true,
+		},
+		operatorType: {
+			type: DataTypes.ENUM,
+			values: ["adm", "kitchen"], // TODO: padronizar tipos de operadores
+			allowNull: false,
+		},
+		createdAt: DataTypes.DATE,
+		updatedAt: DataTypes.DATE,
+	},
+	{
+		sequelize,
+		tableName: "operators",
+	},
+);
+
+// TODO: relação
+// Operator.hasMany(Order);
 
 export const Operator = {
 	crateOperator: async (operatorData) => {

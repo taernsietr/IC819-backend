@@ -1,9 +1,33 @@
-import Sequelize from "sequelize";
-import db from "../db.js";
+import { Model, DataTypes } from "sequelize";
+import sequelize from "../db.js";
 import { validations } from "../resources/index.js";
 
-// TODO: sequelize
-export const DeliveryCompanyModel = {};
+export class DeliveryCompanyModel extends Model {}
+
+DeliveryCompanyModel.init(
+	{
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true,
+		},
+		name: {
+			type: DataTypes.STRING(128),
+			allowNull: false,
+		},
+		fee: {
+			type: DataTypes.FLOAT,
+			allowNull: false,
+		},
+	},
+	{
+		sequelize,
+		tableName: "deliveryCompanies",
+	},
+);
+
+// TODO: relação
+// DeliveryCompany.hasMany(Delivery, { foreignKey: "id" });
 
 export const DeliveryCompany = {
 	createDeliveryCompany: async (data) => {
