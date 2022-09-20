@@ -2,10 +2,8 @@ import { Model, DataTypes } from "sequelize";
 import sequelize from "../db.js";
 import { validations } from "../resources/index.js";
 
-export class AddressModel extends Model {}
-
-AddressModel.init(
-	{
+export const AddressModel = sequelize.define("Address,
+    {
 		id: {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,
@@ -34,14 +32,8 @@ AddressModel.init(
 		postCode: {
 			type: DataTypes.STRING(7), // TODO: verificar tamanho
 			allowNull: false,
-		},
-		createdAt: DataTypes.DATE,
-		updatedAt: DataTypes.DATE,
-	},
-	{
-		sequelize,
-		tableName: "adresses",
-	},
+		}
+	}
 );
 
 export const Address = {

@@ -2,9 +2,7 @@ import { Model, DataTypes } from "sequelize";
 import sequelize from "../db.js";
 import { validations } from "../resources/index.js";
 
-export class OperatorModel extends Model {}
-
-OperatorModel.init(
+export const OperatorModel = sequelize.define("Operator",
 	{
 		id: {
 			type: DataTypes.UUID,
@@ -13,16 +11,12 @@ OperatorModel.init(
 		},
 		operatorType: {
 			type: DataTypes.ENUM,
-			values: ["adm", "kitchen"], // TODO: padronizar tipos de operadores
+			values: ["admin", "operator"],
 			allowNull: false,
 		},
 		createdAt: DataTypes.DATE,
 		updatedAt: DataTypes.DATE,
-	},
-	{
-		sequelize,
-		tableName: "operators",
-	},
+	}
 );
 
 // TODO: relação

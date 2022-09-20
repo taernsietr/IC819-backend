@@ -2,10 +2,8 @@ import { Model, DataTypes } from "sequelize";
 import sequelize from "../db.js";
 import { validations } from "../resources/index.js";
 
-export class ClientModel extends Model {}
-
-ClientModel.init(
-	{
+export const ClientModel = sequelize.define("Client",
+    { 
 		id: {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,
@@ -34,19 +32,13 @@ ClientModel.init(
 		token: {
 			type: DataTypes.STRING(128),
 			allowNull: true,
-		},
-		createdAt: DataTypes.DATE,
-		updatedAt: DataTypes.DATE,
-	},
-	{
-		sequelize,
-		tableName: "clients",
-	},
+		}
+	}
 );
 
 export const Client = {
 	createClient: async (data) => {
-		const createdUser = await	ClientModel.create({
+		const createdUser = await ClientModel.create({
 			name: data.name,
 			cpf: data.cpf,
 			email: data.email,
@@ -130,6 +122,6 @@ export const Client = {
 
 // TODO: sincronização do BD
 (async () => {
-	await sequelize.sync({ force: true });
+	await sequelize.sync();
 	console.log("sincronizado");
 })();

@@ -2,9 +2,8 @@ import { Model, DataTypes } from "sequelize";
 import sequelize from "../db.js";
 import { validations } from "../resources/index.js";
 
-export class DeliveryCompanyModel extends Model {}
 
-DeliveryCompanyModel.init(
+export const DeliveryCompanyModel = sequelize.define("DeliveryCompany",
 	{
 		id: {
 			type: DataTypes.UUID,
@@ -19,11 +18,7 @@ DeliveryCompanyModel.init(
 			type: DataTypes.FLOAT,
 			allowNull: false,
 		},
-	},
-	{
-		sequelize,
-		tableName: "deliveryCompanies",
-	},
+	}
 );
 
 // TODO: relação
@@ -41,7 +36,7 @@ export const DeliveryCompany = {
 
 	validateFee: (fee) => {
 		// TODO: ver regras de negócio para a taxa de entrega
-		console.log("validar taxa de entrega");
+		console.log("Validar taxa de entrega");
 		return true;
 	},
 };
