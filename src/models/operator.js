@@ -1,6 +1,5 @@
-import Sequelize from "sequelize";
-import db from "../db.js";
-import { validations } from "../resources/index.js";
+// import Sequelize from "sequelize";
+// import db from "../db.js";
 
 // TODO: sequelize
 export const OperatorModel = {};
@@ -12,14 +11,5 @@ export const Operator = {
 		});
 
 		return createdUser;
-	},
-
-	isOperatorTypeValid: (operatorType) => {
-		// TODO: padronizar os valores dos tipos de operador
-		if (operatorType === "ADM'" || operatorType === "KITCHEN") {
-			return true;
-		}
-
-		return false;
 	},
 };

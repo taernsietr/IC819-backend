@@ -8,6 +8,8 @@ import cpfValidation from "./validations/cpfValidation.js";
 import emailValidation from "./validations/emailValidation.js";
 import phoneValidation from "./validations/phoneValidation.js";
 import nameValidation from "./validations/nameValidation.js";
+import operatorTypeValidation from "./validations/operatorTypeValidation.js";
+import orderStatusValidation from "./validations/orderStatusValidation.js";
 
 // padões de respostas
 import codes from "./responseCodes/responseCodes.js";
@@ -25,6 +27,8 @@ export const validations = {
 	phoneValidation,
 	cpfValidation,
 	nameValidation,
+	operatorTypeValidation,
+	orderStatusValidation,
 };
 
 export const responseCodes = {
