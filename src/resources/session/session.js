@@ -16,9 +16,10 @@ export function updateCart(req, res) {
 	console.log(`carrinho atual: ${JSON.stringify(userSession?.cart)}`);
 
 	const cart = req.session.cart ? req.session.cart : { items: [], itemsPrice: 0 };
+	const newItem = req.body
 
-	cart.items.push({ item: { id: "dygauydau", value: 5 }, quantity: 2 });
-
+	// cart.items.push({ item: { id: "dygauydau", value: 5 }, quantity: 2 });
+	cart.items.push(newItem);
 	cart.itemsPrice = 1000;
 
 	userSession.cart = cart;

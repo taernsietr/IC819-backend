@@ -21,8 +21,8 @@ router.post("/cliente/cadastrar", createClient);
 
 // Sessão 
 router.get("/sessao", getSession);
-router.get("/sessao/criar-carrinho", createCart);
-router.get("/sessao/att-carrinho", updateCart);
+router.get("/", createCart);
+router.post("/att-carrinho", updateCart);
 
 // Acessáveis apenas por certos usuários
 // TODO: colocar camada de autenticação

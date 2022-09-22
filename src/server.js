@@ -10,7 +10,12 @@ dotenv.config();
 const server = express();
 const port = process.env.SERVER_PORT || 5000;
 
-server.use(cors());
+server.use(cors({
+	origin:['http://localhost:3000'],
+	methods:['GET','POST'],
+	credentials: true
+}));
+
 server.use(express.json());
 server.use(cookieParser());
 
