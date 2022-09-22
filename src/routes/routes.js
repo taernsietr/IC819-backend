@@ -3,7 +3,7 @@ import { createClient } from "../controllers/clientController.js";
 import { createOperator } from "../controllers/operatorController.js";
 import { createDeliveryCompany } from "../controllers/deliveryCompanyController.js";
 import { getMenu, getImgMenu, getItems } from "../resources/mock/getMenu.js";
-import { addToCart, getSession } from "../controllers/cart/cartController.js";
+import { createCartSession, addToCart, getSession } from "../controllers/cart/cartController.js";
 
 const router = Router();
 
@@ -17,9 +17,8 @@ router.get("/images/:imageName", getImgMenu);
 router.get("/session", getSession);
 
 // Cart
-
-router.get("/add/item/:id", addToCart);
-router.get("/add/item/:id", addToCart);
+router.get("/", createCartSession);
+router.post("/adicionarItem", addToCart);
 
 // Acessáveis por qualquer usuário (não necessita de autenticação)
 router.post("/cliente/cadastrar", createClient);
