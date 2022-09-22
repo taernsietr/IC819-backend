@@ -1,4 +1,4 @@
-import { orderStatus } from "../../models/dataEnums";
+import { orderStatus } from "../../models/dataEnums.js";
 
 export default function orderStatusValidation(ordStatus) {
 	const result = orderStatus.find((e) => e === ordStatus);
