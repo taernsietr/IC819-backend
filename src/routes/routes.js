@@ -5,6 +5,8 @@ import { createDeliveryCompany } from "../controllers/deliveryCompanyController.
 import { getMenu, getImgMenu, getItems } from "../resources/mock/getMenu.js";
 import { createCartSession, addToCart, getSession } from "../controllers/cart/cartController.js";
 
+import { getSession, createCart, updateCart } from "../resources/session/session.js";
+
 const router = Router();
 
 // Mock com menu e itens
@@ -20,8 +22,16 @@ router.get("/session", getSession);
 router.get("/", createCartSession);
 router.post("/adicionarItem", addToCart);
 
+router.get("/", (req, res) => {
+	res.send("início");
+});
+
 // Acessáveis por qualquer usuário (não necessita de autenticação)
 router.post("/cliente/cadastrar", createClient);
+
+router.get("/sessao", getSession);
+router.get("/sessao/criar-carrinho", createCart);
+router.get("/sessao/att-carrinho", updateCart);
 
 // Acessáveis apenas por certos usuários
 // TODO: colocar camada de autenticação

@@ -104,7 +104,7 @@ async function createOrder(req, res) {
 		const {
 			clientToken,
 			deliveryID,
-			address, // {objeto endereço} 
+			address, // {objeto endereço}
 			status, // botar só na criação (tirar esperando pagamento)
 			itemsPrice,
 			feePrice,

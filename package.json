@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/taernsietr/IC819-backend#readme",
   "dependencies": {
-    "connect-memcached": "^2.0.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
