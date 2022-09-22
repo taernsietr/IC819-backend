@@ -104,8 +104,10 @@ async function createOrder(req, res) {
 		const {
 			clientToken,
 			deliveryID,
-			status,
-			totalPrice,
+			address, // {objeto endereço}
+			status, // botar só na criação (tirar esperando pagamento)
+			itemsPrice,
+			feePrice,
 			items, // verificar qual vai ser o nome do atributo
 		} = req.body;
 
@@ -130,7 +132,7 @@ async function createOrder(req, res) {
 		}
 
 		// verificar se o preço total é válido
-		if (!totalPrice === isItemsValid.totalPrice) {
+		if (!itemsPrice === isItemsValid.totalPrice) { // Ajeitar nome
 			res.status(500).send({
 				code: responseCodes.unknownInternalError,
 			});
@@ -140,7 +142,7 @@ async function createOrder(req, res) {
 			clientID,
 			deliveryID,
 			status,
-			totalPrice,
+			// Passar os preços
 		};
 
 		const createdOrder = { id: "adhiudhai", ...newOrder }; // enquanto o bd não está funcionando usar essa linha
