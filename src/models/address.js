@@ -1,8 +1,7 @@
-import { Model, DataTypes } from "sequelize";
-import sequelize from "../db.js";
-import { validations } from "../resources/index.js";
+import { DataTypes } from "sequelize";
+import { sequelize } from "../db.js";
 
-export const AddressModel = sequelize.define("Address,
+export const AddressModel = sequelize.define("Address",
     {
 		id: {
 			type: DataTypes.UUID,
@@ -39,3 +38,4 @@ export const AddressModel = sequelize.define("Address,
 export const Address = {
 
 };
+

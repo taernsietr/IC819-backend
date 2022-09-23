@@ -1,5 +1,5 @@
-import { Model, DataTypes } from "sequelize";
-import sequelize from "../db.js";
+import { DataTypes } from "sequelize";
+import { sequelize } from "../db.js";
 import { validations } from "../resources/index.js";
 
 export const ClientModel = sequelize.define("Client",
@@ -115,13 +115,3 @@ export const Client = {
 	},
 };
 
-// ClientModel.hasMany(Order, { foreignKey: "id" });
-// ClientModel.hasOne(Address, { foreignKey: "id" });
-
-// TODO: sincronizar modelo -> await ClientModel.sync({ force: true });
-
-// TODO: sincronização do BD
-(async () => {
-	await sequelize.sync();
-	console.log("sincronizado");
-})();
