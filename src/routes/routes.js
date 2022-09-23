@@ -24,12 +24,11 @@ router.get("/sessao/destruir", deleteSession); // deletar sessão
 // Carrinho
 router.get("/", createCart); // criar carrinho na sessão
 router.post("/add-carrinho", addCart); // adicionar item no carrinho
-router.get("/get-item-adicionado", getAddCart) // Ver item que foi adicionado no carrinho
+router.get("/get-item-adicionado", getAddCart);// Ver item que foi adicionado no carrinho
 router.get("/get-cart", getCart); // retornar o carrinho
 router.post("/remover-item", removeItem); // remover item do carrinho
 router.get("/limpar-carrinho", clearCart); // limpar o carrinho
 router.post("/finalizar-pedido", createOrder); // finalizar pedido
-// updata quantity
 
 // Cliente
 router.post("/cliente/cadastrar", createClient); // cadastrar cliente

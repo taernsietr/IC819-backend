@@ -10,8 +10,12 @@ const initialCart = { items: [], itemsPrice: 0 };
 // Pagina carrinho ser diferente quando está vazia
 
 export function createCart(req, res) {
-	const cart = initialCart;
-	req.session.cart = cart;
+	const current = req.session.cart;
+
+	// se current não é undefined e é deferente do inicial
+	if (!(current !== undefined && JSON.stringify(current) !== JSON.stringify(initialCart))) {
+		req.session.cart = initialCart;
+	}
 
 	res.status(201).send({ code: responseCodes.success });
 }
@@ -19,7 +23,7 @@ export function createCart(req, res) {
 export function getAddCart(req, res) {
 	const cart = req.session.cart ? req.session.cart : initialCart;
 	req.session.cart = cart;
-	const length = req.session.cart.items.length;
+	const length = req.session.cart.items.length - 1;
 	res.send(req.session.cart.items[length]);
 }
 
@@ -44,7 +48,7 @@ export function addCart(req, res) {
 		console.log(`[add] req.session.cart = ${JSON.stringify(req.session.cart)}`);
 
 		// Verificar se o carrinho da sessão existe. se não existir, ou for [], inicializar atributo
-		const cart = (req.session.cart || req.session.cart !== []) ? req.session.cart : initialCart;
+		const cart = (req.session.cart && req.session.cart !== []) ? req.session.cart : initialCart;
 
 		// Se o carrinho é vazio (initialCart), é só add o item
 		if (JSON.stringify(cart) === JSON.stringify(initialCart)) {
@@ -109,7 +113,7 @@ export function getCart(req, res) {
 export function removeItem(req, res) {
 	try {
 		const itemToBeRemoved = req.body;
-		console.log(`[remove] itemToBeRemoved = ${JSON.stringify(itemToBeRemoved)}`);
+		console.log(`[rm] itemToBeRemoved = ${JSON.stringify(itemToBeRemoved)}`);
 
 		const isItemValid = validations.itemsArrayValidation([itemToBeRemoved]);
 
@@ -120,7 +124,7 @@ export function removeItem(req, res) {
 			return;
 		}
 
-		const cart = (req.session.cart || req.session.cart !== []) ? req.session.cart : initialCart;
+		const cart = (req.session.cart && req.session.cart !== []) ? req.session.cart : initialCart;
 
 		if (!(JSON.stringify(cart) === JSON.stringify(initialCart))) {
 			const itemAlreadyExists = [];
@@ -130,23 +134,26 @@ export function removeItem(req, res) {
 				}
 			});
 
-			console.log(`[remove] itemAlreadyExists = ${JSON.stringify(itemAlreadyExists)}`);
+			console.log(`[rm] itemAlreadyExists = ${JSON.stringify(itemAlreadyExists)}`);
 
 			const itemIndex = itemAlreadyExists === [] ? false : itemAlreadyExists[0];
 
-			console.log(`[remove] itemIndex = ${JSON.stringify(itemIndex)}`);
+			console.log(`[rm] itemIndex = ${JSON.stringify(itemIndex)}`);
 
 			if (itemIndex !== false && itemIndex !== undefined) {
-				const updatedCartItems = cart.items.splice(itemIndex, 1);
-				console.log(`[remove] updatedCartItems = ${JSON.stringify(updatedCartItems)}`);
+				const removedItem = cart.items.splice(itemIndex, 1);
 
-				const updatedPrice = cart.itemsPrice - (itemToBeRemoved.item.price * itemToBeRemoved.quantity);
+				const updatedPrice = cart.itemsPrice - (itemToBeRemoved.item.value * itemToBeRemoved.quantity);
+				console.log(`[rm] cart.itemsPrice = ${JSON.stringify(cart.itemsPrice)}`);
+				console.log(`[rm] itemToBeRemoved.item.value = ${JSON.stringify(itemToBeRemoved.item.value)}`);
+				console.log(`[rm] itemToBeRemoved.quantity = ${JSON.stringify(itemToBeRemoved.quantity)}`);
+				console.log(`[rm] updatedPrice = ${JSON.stringify(updatedPrice)}`);
 
-				req.session.cart.items = updatedCartItems;
-				req.session.cart.itemsPrice = updatedPrice;
+
+				req.session.cart.itemsPrice = (updatedPrice === null) ? 0 : updatedPrice;
 			}
 
-			console.log(`[remove] carrinho atualizado = ${JSON.stringify(req.session.cart)}`);
+			console.log(`[rm] carrinho atualizado = ${JSON.stringify(req.session.cart)}`);
 
 			res.status(200).send({ code: responseCodes.success });
 			return;
@@ -163,6 +170,6 @@ export function removeItem(req, res) {
 // limpar carrinho
 export function clearCart(req, res) {
 	req.session.cart = initialCart;
-
-	res.status(200).send({ code: responseCodes.success });
+	console.log("clearCart");
+	res.status(200).send({ code: responseCodes.success, result: req.session.cart });
 }

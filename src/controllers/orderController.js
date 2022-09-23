@@ -18,12 +18,22 @@ async function createOrderItems(itemsArray, orderID) {
 async function createOrder(req, res) {
 	try {
 		const {
-			address,
-			deliveryID,
+			address, // mock
+			deliveryID, // mock
+			paymentMethod,
 			itemsPrice,
 			fee,
 			items, // verificar qual vai ser o nome do atributo
 		} = req.body;
+
+		console.log(`${JSON.stringify({
+			address, // mock
+			deliveryID, // mock
+			paymentMethod,
+			itemsPrice,
+			fee,
+			items,
+		}, 3)}`);
 
 		// verificar se o items é valido
 		const isItemsValid = validations.itemsArrayValidation(items);
