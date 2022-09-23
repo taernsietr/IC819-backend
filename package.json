@@ -27,7 +27,7 @@
     "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
     "mariadb": "^3.0.1",
-    "sequelize": "^6.21.4"
+    "sequelize": "^6.21.6"
   },
   "devDependencies": {
     "eslint": "^8.23.0",

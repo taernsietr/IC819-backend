@@ -1,6 +1,6 @@
 import { responseCodes, validations } from "../resources/index.js";
 import { Item } from "../models/item.js";
-import { OrderItem } from "../models/orderItem.js";
+import { OrderItemMethods } from "../models/order.js";
 import { orderStatus } from "../models/dataEnums.js"
 
 // const CartItem =	{
@@ -21,7 +21,7 @@ import { orderStatus } from "../models/dataEnums.js"
 async function createOrderItems(itemsArray, orderID) {
 	// pra cada item, criar no bd
 	itemsArray.forEach(async (i) => {
-		await OrderItem.createOrderItem({ // MOCK!!
+		await OrderItemMethods.createOrderItem({ // MOCK!!
 			itemID: i.item.id,
 			orderID,
 			quantity:

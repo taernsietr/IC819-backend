@@ -1,8 +1,22 @@
-// import Sequelize from "sequelize";
-// import db from "../db.js";
+import { DataTypes } from "sequelize";
+import { sequelize } from "../db.js";
 
-// TODO: sequelize
-export const OperatorModel = {};
+export const OperatorModel = sequelize.define("Operator",
+	{
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true,
+		},
+		operatorType: {
+			type: DataTypes.ENUM,
+			values: ["admin", "operator"],
+			allowNull: false,
+		},
+		createdAt: DataTypes.DATE,
+		updatedAt: DataTypes.DATE,
+	},
+);
 
 export const Operator = {
 	crateOperator: async (operatorData) => {
