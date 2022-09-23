@@ -3,7 +3,7 @@ import { createClient } from "../controllers/clientController.js";
 import { createOperator } from "../controllers/operatorController.js";
 import { createDeliveryCompany } from "../controllers/deliveryCompanyController.js";
 import { getMenu, getImgMenu, getItems } from "../resources/mock/getMenu.js";
-import { createCart, addCart, getCart, clearCart, removeItem} from "../controllers/cart/cartController.js";
+import { createCart, addCart, getCart, clearCart, removeItem, getAddCart} from "../controllers/cart/cartController.js";
 import { getSession, deleteSession } from "../controllers/user/session.js";
 import { createOrder } from "../controllers/orderController.js";
 
@@ -24,6 +24,7 @@ router.get("/sessao/destruir", deleteSession); // deletar sessão
 // Carrinho
 router.get("/", createCart); // criar carrinho na sessão
 router.post("/add-carrinho", addCart); // adicionar item no carrinho
+router.get("/get-item-adicionado", getAddCart) // Ver item que foi adicionado no carrinho
 router.get("/get-cart", getCart); // retornar o carrinho
 router.post("/remover-item", removeItem); // remover item do carrinho
 router.get("/limpar-carrinho", clearCart); // limpar o carrinho

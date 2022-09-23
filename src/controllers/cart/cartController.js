@@ -16,6 +16,14 @@ export function createCart(req, res) {
 	res.status(201).send({ code: responseCodes.success });
 }
 
+export function getAddCart(req, res) {
+	const cart = req.session.cart ? req.session.cart : initialCart;
+	req.session.cart = cart;
+	const length = req.session.cart.items.length;
+	res.send(req.session.cart.items[length]);
+}
+
+
 export function addCart(req, res) {
 	try {
 	const newItem = req.body;
