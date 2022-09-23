@@ -35,7 +35,7 @@ async function createOrder(req, res) {
 		}
 
 		// verificar se o preço total é válido
-		if (!itemsPrice === isItemsValid.itemsPrice) { // Ajeitar nome
+		if (!itemsPrice === isItemsValid.itemsPrice) {
 			res.status(500).send({
 				code: responseCodes.unknownInternalError,
 			});

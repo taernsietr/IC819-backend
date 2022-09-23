@@ -1,6 +1,6 @@
 // autenticações
-import generateAccessToken from "./auth/generateAccessToken.js";
-import checkUserAuth from "./auth/checkUserAuth.js";
+// import generateAccessToken from "./auth/generateAccessToken.js";
+// import checkUserAuth from "./auth/checkUserAuth.js";
 import { comparePasswordHash, decryptData, createPasswordHash } from "./auth/passwordHash.js";
 
 // validações
@@ -16,7 +16,7 @@ import itemsArrayValidation from "./validations/itemsValidations.js";
 import codes from "./responseCodes/responseCodes.js";
 
 export const auth = {
-	generateAccessToken,
+	// generateAccessToken,
 	// ...checkUserAuth,
 	comparePasswordHash,
 	decryptData,
