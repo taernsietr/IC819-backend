@@ -3,7 +3,7 @@ import responseCodes from "../responseCodes/responseCodes.js";
 
 // validar o array de items
 export default function itemsArrayValidation(itemsArray) {
-	let totalPrice = 0;
+	let itemsPrice = 0;
 
 	// verificar se o array não está vazio
 	if (!itemsArray || itemsArray === []) {
@@ -38,13 +38,13 @@ export default function itemsArrayValidation(itemsArray) {
 		}
 
 		// se tudo certo, adiciona o preço no total price
-		totalPrice += i.quantity * i.item.value;
+		itemsPrice += i.quantity * i.item.value;
 
 		return null;
 	});
 
 	return {
 		result: true,
-		totalPrice,
+		itemsPrice,
 	};
 }

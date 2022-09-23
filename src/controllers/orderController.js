@@ -18,6 +18,7 @@ async function createOrderItems(itemsArray, orderID) {
 async function createOrder(req, res) {
 	try {
 		const {
+			address,
 			deliveryID,
 			itemsPrice,
 			fee,
@@ -34,7 +35,7 @@ async function createOrder(req, res) {
 		}
 
 		// verificar se o preço total é válido
-		if (!itemsPrice === isItemsValid.totalPrice) { // Ajeitar nome
+		if (!itemsPrice === isItemsValid.itemsPrice) { // Ajeitar nome
 			res.status(500).send({
 				code: responseCodes.unknownInternalError,
 			});
