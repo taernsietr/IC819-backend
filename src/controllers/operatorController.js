@@ -1,5 +1,5 @@
 import { Operator, OperatorModel } from "../models/operator.js";
-import { responseCodes } from "../resources/index.js";
+import { responseCodes, validations } from "../resources/index.js";
 
 async function createOperator(req, res) {
 	try {
@@ -7,8 +7,8 @@ async function createOperator(req, res) {
 		console.log(`[createOperator] operatorType = ${operatorType}`);
 
 		// validar tipo de operador
-		if (!Operator.isOperatorTypeValid(operatorType)) {
-			console.log("[createOperator] !Operator.isOperatorTypeValid(operatorType)");
+		if (!validations.operatorTypeValidation(operatorType)) {
+			console.log("[createOperator] !validations.operatorTypeValidation(operatorType)");
 
 			res.status(400).send({
 				code: responseCodes.invalidData,

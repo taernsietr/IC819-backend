@@ -1,9 +1,23 @@
-import Sequelize from "sequelize";
-import db from "../db.js";
-import { validations } from "../resources/index.js";
+import { DataTypes } from "sequelize";
+import { sequelize } from "../db.js";
 
-// TODO: sequelize
-export const DeliveryCompanyModel = {};
+export const DeliveryCompanyModel = sequelize.define("DeliveryCompany",
+	{
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true,
+		},
+		name: {
+			type: DataTypes.STRING(128),
+			allowNull: false,
+		},
+		fee: {
+			type: DataTypes.FLOAT,
+			allowNull: false,
+		},
+	}
+);
 
 export const DeliveryCompany = {
 	createDeliveryCompany: async (data) => {
@@ -17,7 +31,7 @@ export const DeliveryCompany = {
 
 	validateFee: (fee) => {
 		// TODO: ver regras de negócio para a taxa de entrega
-		console.log("validar taxa de entrega");
+		console.log("Validar taxa de entrega");
 		return true;
 	},
 };

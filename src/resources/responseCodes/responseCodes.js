@@ -11,6 +11,11 @@ const responseCodes = {
 		cpf: "DUPLICATED_CPF",
 		email: "DUPLICATED_EMAIL",
 	},
+	unavailableStock: "UNAVAILABLE_STOCK",
+	session: {
+		created: "SESSION_CREATED",
+		deleted: "SESSION_DELETED",
+	},
 };
 
 export default responseCodes;
