@@ -1,7 +1,7 @@
 import { responseCodes, validations } from "../resources/index.js";
 import { Item } from "../models/item.js";
 import { OrderItem } from "../models/orderItem.js";
-import { Client } from "../models/client.js";
+import { orderStatus } from "../models/dataEnums.js"
 
 // const CartItem =	{
 // 	item: {
@@ -34,7 +34,6 @@ async function createOrderItems(itemsArray, orderID) {
 async function createOrder(req, res) {
 	try {
 		const {
-			clientToken,
 			deliveryID,
 			address, // {objeto endereço}
 			status, // botar só na criação (tirar esperando pagamento)
@@ -42,9 +41,6 @@ async function createOrder(req, res) {
 			fee,
 			items, // verificar qual vai ser o nome do atributo
 		} = req.body;
-
-		// verificar se o token existe. se existir, procurar no BD
-		const clientID = clientToken ? await Client.getByToken(clientToken) : null;
 
 		// validar o status do pedido
 		if (!validations.orderStatusValidation(status)) {
@@ -71,10 +67,10 @@ async function createOrder(req, res) {
 		}
 
 		const newOrder = {
-			clientID,
 			deliveryID,
-			status,
-			// Passar os preços
+			status: orderStatus[1], // confirmado
+			totalPrice: itemsPrice + fee,
+
 		};
 
 		const createdOrder = { id: "adhiudhai", ...newOrder }; // enquanto o bd não está funcionando usar essa linha

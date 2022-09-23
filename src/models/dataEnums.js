@@ -4,12 +4,12 @@ const operatorTypes = [
 ];
 
 const orderStatus = [
-	"EXPECTING_PAYMENT",
-	"CONFIRMED",
-	"EM_PREPARO", // TODO: nome em inglês
-	"AWAITING_DELIVERY",
-	"DELIVERED",
-	"CANCELLED",
+	"EXPECTING_PAYMENT", // 0
+	"CONFIRMED", // 1
+	"EM_PREPARO", // 2 // TODO: nome em inglês
+	"AWAITING_DELIVERY", // 3
+	"DELIVERED", // 4
+	"CANCELLED", // 5
 ];
 
 export {
