@@ -36,7 +36,8 @@ export {
 
 const OrderItemMethods = {
 	createOrderItem: async (orderItem) => {
-		console.log(`create order item ${orderItem}`); // TODO: fazer no bd
+		console.log(`create order item ${orderItem}`);
+		OrderItem.create(orderItem);
 	},
 };
 

@@ -1,8 +1,9 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
 
-export const AddressModel = sequelize.define("Address",
-    {
+export const AddressModel = sequelize.define(
+	"Address",
+	{
 		id: {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,
@@ -31,11 +32,10 @@ export const AddressModel = sequelize.define("Address",
 		postCode: {
 			type: DataTypes.STRING(7), // TODO: verificar tamanho
 			allowNull: false,
-		}
-	}
+		},
+	},
 );
 
 export const Address = {
 
 };
-

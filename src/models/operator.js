@@ -1,7 +1,8 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
 
-export const OperatorModel = sequelize.define("Operator",
+export const OperatorModel = sequelize.define(
+	"Operator",
 	{
 		id: {
 			type: DataTypes.UUID,
@@ -13,13 +14,11 @@ export const OperatorModel = sequelize.define("Operator",
 			values: ["admin", "operator"],
 			allowNull: false,
 		},
-		createdAt: DataTypes.DATE,
-		updatedAt: DataTypes.DATE,
 	},
 );
 
 export const Operator = {
-	crateOperator: async (operatorData) => {
+	createOperator: async (operatorData) => {
 		const createdUser = await OperatorModel.create({
 			operatorType: operatorData.operatorType,
 		});

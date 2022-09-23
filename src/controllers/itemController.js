@@ -1,3 +1,4 @@
+import { Item } from "../models/item.js";
 import { responseCodes, validations } from "../resources/index.js";
 
 async function createItem(req, res) {
@@ -25,8 +26,7 @@ async function createItem(req, res) {
 			enabled: true,
 		};
 
-		const createdItem = newItem; // enquanto o bd não está funcionando usar essa linha
-		// const createdItem == await Item.createItem(newItem);
+		const createdItem = await Item.createItem(newItem);
 
 		res.status(201).send({
 			code: responseCodes.created,

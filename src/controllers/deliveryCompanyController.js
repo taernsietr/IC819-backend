@@ -1,5 +1,5 @@
 import { responseCodes, validations } from "../resources/index.js";
-import { DeliveryCompany, DeliveryCompanyModel } from "../models/deliveryCompany.js";
+import { DeliveryCompany } from "../models/deliveryCompany.js";
 
 async function createDeliveryCompany(req, res) {
 	try {
@@ -7,12 +7,9 @@ async function createDeliveryCompany(req, res) {
 		console.log(`[createDeliveryCompany] name = ${name}`);
 		console.log(`[createDeliveryCompany] fee = ${fee}`);
 
-		// verificar se os dados são válidos
 		if (
-			!validations.nameValidation(name)
-			|| !DeliveryCompany.validateFee(fee)) {
+			!validations.nameValidation(name)) {
 			console.log(`[createDeliveryC] nameVal =${validations.nameValidation(name)}`);
-			console.log(`[createDeliveryC] feeVal = ${DeliveryCompany.validateFee(fee)}`);
 			res.status(400).send({
 				code: responseCodes.invalidData,
 			});
@@ -24,8 +21,7 @@ async function createDeliveryCompany(req, res) {
 			fee,
 		};
 
-		const created = newDeliveryCompany; // enquanto o bd não está funcionando usar essa linha
-		// const created = await DeliveryCompany.createDeliveryCompany(newDeliveryCompany);
+		const created = await DeliveryCompany.createDeliveryCompany(newDeliveryCompany);
 
 		res.status(201).send({
 			code: responseCodes.created,

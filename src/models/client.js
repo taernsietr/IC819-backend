@@ -2,8 +2,9 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
 import { validations } from "../resources/index.js";
 
-export const ClientModel = sequelize.define("Client",
-    { 
+export const ClientModel = sequelize.define(
+	"Client",
+	{
 		id: {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,
@@ -18,7 +19,7 @@ export const ClientModel = sequelize.define("Client",
 			allowNull: false,
 		},
 		email: {
-			type: DataTypes.STRING(32), // TODO: confirmar tipo e tamanho
+			type: DataTypes.STRING(32),
 			allowNull: false,
 		},
 		phone: {
@@ -26,14 +27,14 @@ export const ClientModel = sequelize.define("Client",
 			allowNull: false,
 		},
 		passwordHash: {
-			type: DataTypes.STRING(512), // TODO: presumindo SHA512; confirmar tamanho necessário
+			type: DataTypes.STRING(512),
 			allowNull: false,
 		},
 		token: {
 			type: DataTypes.STRING(128),
 			allowNull: true,
-		}
-	}
+		},
+	},
 );
 
 export const Client = {
@@ -114,9 +115,8 @@ export const Client = {
 		return res;
 	},
 
-	// TODO: fazer no bd APENAS SE DER TEMPO! como ainda estamos trabalhanso só com cliente n logado n é prioridade
-	getByToken: async (token) => {
-		console.log(`find client by token ${token}`);
-	},
+	// // TODO: fazer no bd APENAS SE DER TEMPO! como ainda estamos trabalhanso só com cliente n logado n é prioridade
+	// getByToken: async (token) => {
+	// 	console.log(`find client by token ${token}`);
+	// },
 };
-

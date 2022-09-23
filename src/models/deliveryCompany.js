@@ -1,7 +1,8 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
 
-export const DeliveryCompanyModel = sequelize.define("DeliveryCompany",
+export const DeliveryCompanyModel = sequelize.define(
+	"DeliveryCompany",
 	{
 		id: {
 			type: DataTypes.UUID,
@@ -16,7 +17,7 @@ export const DeliveryCompanyModel = sequelize.define("DeliveryCompany",
 			type: DataTypes.FLOAT,
 			allowNull: false,
 		},
-	}
+	},
 );
 
 export const DeliveryCompany = {
@@ -27,11 +28,5 @@ export const DeliveryCompany = {
 		});
 
 		return createdDeliveryCompany;
-	},
-
-	validateFee: (fee) => {
-		// TODO: ver regras de negócio para a taxa de entrega
-		console.log("Validar taxa de entrega");
-		return true;
 	},
 };

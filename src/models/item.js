@@ -1,12 +1,13 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
 
-export const ItemModel = sequelize.define("Item",
+export const ItemModel = sequelize.define(
+	"Item",
 	{
 		id: {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,
-			primaryKey: true
+			primaryKey: true,
 		},
 		name: {
 			type: DataTypes.STRING(128),
@@ -18,9 +19,9 @@ export const ItemModel = sequelize.define("Item",
 		},
 		enabled: {
 			type: DataTypes.BOOLEAN,
-			allowNull: false
-		}
-	}
+			allowNull: false,
+		},
+	},
 );
 
 const Item = {
