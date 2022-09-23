@@ -1,37 +1,53 @@
-const express = require("express");
+import express from "express";
+import cookieParser from "cookie-parser";
+import sessions from "express-session";
+import cors from "cors";
+import * as dotenv from "dotenv";
+import router from "./routes/routes.js";
+import { DataTypes } from "sequelize";
+import { sequelize, syncSequelize } from "./db.js";  
+
+import { ClientModel } from "./models/client.js";
+import { AddressModel } from "./models/address.js";
+import { DeliveryCompanyModel } from "./models/deliveryCompany.js";
+import { ItemModel } from "./models/item.js";
+import { OrderModel, OrderItem } from "./models/order.js";
+
+dotenv.config();
+
+ClientModel.hasMany(OrderModel, { foreignKey: "id" });
+ClientModel.hasOne(AddressModel, { foreignKey: { name: "address", type: DataTypes.UUID }});
+AddressModel.belongsTo(ClientModel);
+ItemModel.belongsToMany(OrderModel, { through: "OrderItem" });
+OrderModel.belongsToMany(ItemModel, { through: "OrderItem" });
+syncSequelize();
+
 const server = express();
-const session = require("express-session");
-const MariadbStore = require("express-mariadb-session")(session);
-const routes = require("./routes");
-const bd = require("./db");
+const port = process.env.SERVER_PORT || 5000;
 
-// configurar o dotenv para acessar as váriáveis de ambiente
-const dotenv = require("dotenv");
-const result = dotenv.config({ path: __dirname + "../.env" }); // path.resolve("src", ".env");
-if (result.error) {
-	throw result.error;
-}
-
-const port = process.env.SERVER_PORT;
-
-server.use(express.json());
-
-const sessionStore = new MariadbStore({}, bd);
-
-server.use(session({
-	key: process.env.SESSION_KEY,
-	secret: process.env.SESSION_SECRET,
-	store: sessionStore,
-	// resave: false,
-	// saveUninitialized: false,
-	cookie: {
-		// 1 dia em milisegundos
-		maxAge: 86400000
-	}
+server.use(cors({
+	origin:['http://localhost:3000'],
+	methods:['GET','POST'],
+	credentials: true
 }));
 
-server.use(routes);
+server.use(express.json());
+server.use(cookieParser());
+
+// 24 horas em milisegundos
+const oneDay = 1000 * 60 * 60 * 24;
+server.use(sessions({
+	secret: process.env.SESSION_SECRET,
+	resave: false,
+	saveUninitialized: true,
+}));
+
+server.use(router);
 
 server.listen(port, () => {
 	console.log(`Rodando em: http://localhost:${port}`);
 });
+
+console.log("[MODELS]:");
+console.log(sequelize.models);
+

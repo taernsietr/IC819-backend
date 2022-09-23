@@ -1,36 +1,21 @@
 {
     "env": {
         "browser": true,
-        "commonjs": true,
-        "es2021": true,
-        "node": true
+        "es2021": true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
+    "extends": "airbnb-base",
+    "overrides": [
     ],
-    "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "sourceType": "module"
     },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
-    ],
     "rules": {
         "indent": [
             "error",
             "tab"
         ],
-        // TODO: acredito que podemos tirar essa regra (rizzo)
-        // "linebreak-style": [
-        //     "warn",
-        //     "unix"
-        // ],
+        "linebreak-style": "off",
         "quotes": [
             "error",
             "double"
@@ -39,6 +24,21 @@
             "error",
             "always"
         ],
-        "@typescript-eslint/no-var-requires": "off"
+        "no-tabs": "off",
+        "no-console":"off",
+        "no-unused-vars":"warn",
+        "no-param-reassign":"off",
+        "no-plusplus":"off",
+        "radix":"off",
+        "max-len": [
+            "error",
+            {
+                "code": 90,
+                "ignoreStrings": true,
+                "ignoreComments": true,
+                "ignoreTrailingComments": true
+            }
+        ],
+        "import/extensions": "off"
     }
 }

@@ -1,15 +1,38 @@
+// autenticações
+// import generateAccessToken from "./auth/generateAccessToken.js";
+// import checkUserAuth from "./auth/checkUserAuth.js";
+import { comparePasswordHash, decryptData, createPasswordHash } from "./auth/passwordHash.js";
 
-import cpfValidation from "./validations/cpfValidation";
-import emailValidation from "./validations/emailValidation";
-import phoneValidation from "./validations/phoneValidation";
+// validações
+import cpfValidation from "./validations/cpfValidation.js";
+import emailValidation from "./validations/emailValidation.js";
+import phoneValidation from "./validations/phoneValidation.js";
+import nameValidation from "./validations/nameValidation.js";
+import operatorTypeValidation from "./validations/operatorTypeValidation.js";
+import orderStatusValidation from "./validations/orderStatusValidation.js";
+import itemsArrayValidation from "./validations/itemsValidations.js";
 
-import generateAccessToken from "./validations/generateAccessToken";
+// padões de respostas
+import codes from "./responseCodes/responseCodes.js";
 
-const resources = {
+export const auth = {
+	// generateAccessToken,
+	// ...checkUserAuth,
+	comparePasswordHash,
+	decryptData,
+	createPasswordHash,
+};
+
+export const validations = {
 	emailValidation,
 	phoneValidation,
 	cpfValidation,
-	generateAccessToken,
+	nameValidation,
+	operatorTypeValidation,
+	orderStatusValidation,
+	itemsArrayValidation,
 };
 
-export default resources;
+export const responseCodes = {
+	...codes,
+};
