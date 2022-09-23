@@ -82,5 +82,9 @@ export const Client = {
 		res.code = "OK";
 		return res;
 	},
-	
+
+	// TODO: fazer no bd APENAS SE DER TEMPO! como ainda estamos trabalhanso só com cliente n logado n é prioridade
+	getByToken: async (token) => {
+		console.log(`find client by token ${token}`);
+	},
 };

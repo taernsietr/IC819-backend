@@ -10,6 +10,7 @@ import phoneValidation from "./validations/phoneValidation.js";
 import nameValidation from "./validations/nameValidation.js";
 import operatorTypeValidation from "./validations/operatorTypeValidation.js";
 import orderStatusValidation from "./validations/orderStatusValidation.js";
+import itemsArrayValidation from "./validations/itemsValidations.js";
 
 // padões de respostas
 import codes from "./responseCodes/responseCodes.js";
@@ -29,6 +30,7 @@ export const validations = {
 	nameValidation,
 	operatorTypeValidation,
 	orderStatusValidation,
+	itemsArrayValidation,
 };
 
 export const responseCodes = {

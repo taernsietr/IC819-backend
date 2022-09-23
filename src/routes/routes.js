@@ -3,26 +3,32 @@ import { createClient } from "../controllers/clientController.js";
 import { createOperator } from "../controllers/operatorController.js";
 import { createDeliveryCompany } from "../controllers/deliveryCompanyController.js";
 import { getMenu, getImgMenu, getItems } from "../resources/mock/getMenu.js";
-// import { createCartSession, addToCart, getSession } from "../controllers/cart/cartController.js";
-
-import { getSession, createCart, updateCart } from "../resources/session/session.js";
+import { createCart, addCart, getCart } from "../controllers/cart/cartController.js";
+import { getSession, deleteSession } from "../controllers/user/session.js";
 
 const router = Router();
 
 // Mock com menu e itens
-router.get("/menu/items", getMenu);
+router.get("/menu-items", getMenu);
 router.get("/items", getItems);
 router.get("/images/:imageName", getImgMenu);
 
-
 // Acessáveis por qualquer usuário (não necessita de autenticação)
-
 router.post("/cliente/cadastrar", createClient);
 
-// Sessão 
-router.get("/sessao", getSession);
+// Sessão
+router.get("/sessao", getSession); // pegar sessão
+router.get("/sessao/destruir", deleteSession); // deletar sessão
+
+// Carrinho
 router.get("/", createCart);
-router.post("/att-carrinho", updateCart);
+router.post("/add-carrinho", addCart);
+router.get("/get-cart", getCart);
+// remover item
+// finalizar pedido
+// retornar o carrinho
+// limpar carrinho
+// updata quantity
 
 // Acessáveis apenas por certos usuários
 // TODO: colocar camada de autenticação

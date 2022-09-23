@@ -1,24 +1,7 @@
 import { responseCodes, validations } from "../resources/index.js";
-
-// AUXILIARES! só pra não dar erro por enquanto
-// TODO: fazer no bd
-const Item = {
-	getById: async (id) => {
-		console.log(`find item by id ${id}`);
-	},
-};
-// TODO: fazer no bd
-const OrderItem = {
-	createOrderItem: async (orderItem) => {
-		console.log(`create order item ${orderItem}`);
-	},
-};
-// TODO: fazer no bd APENAS SE DER TEMPO! como ainda estamos trabalhanso só com cliente n logado n é prioridade
-const Client = {
-	getByToken: async (token) => {
-		console.log(`find client by token ${token}`);
-	},
-};
+import { Item } from "../models/item.js";
+import { OrderItem } from "../models/orderItem.js";
+import { Client } from "../models/client.js";
 
 // const CartItem =	{
 // 	item: {
@@ -34,62 +17,11 @@ const Client = {
 // 	quantity: number,
 // };
 
-// validar o array de items do carrinho
-async function itemsArrayValidation(itemsArray) {
-	let totalPrice = 0;
-
-	// verificar se o array não está vazio
-	if (!itemsArray || itemsArray === []) {
-		return {
-			result: false,
-			code: responseCodes.emptyData,
-		};
-	}
-
-	// para cada item
-	itemsArray.forEach((i) => {
-		// verificar se a id existe, se a quantidade é um número e se o valor é um número
-		if (
-			!i.item.id
-			|| !(i.quantity instanceof Number)
-			|| !(i.item.value instanceof Number)
-		) {
-			return {
-				result: false,
-				code: responseCodes.invalidData,
-			};
-		}
-
-		const bdItem = Item.getById(i.item.id);
-
-		// verificar se há a quantidade em estoque
-		if (i.quantity > bdItem.availableInStock) {
-			return {
-				result: false,
-				code: responseCodes.unavailableStock,
-			};
-		}
-
-		// se tudo certo, adiciona o preço no total price
-		totalPrice += i.quantity * i.item.value;
-
-		console.log(`preço do item = ${i.quantity * i.item.value}`);
-		console.log(`totalPrice = ${totalPrice}`);
-
-		return null;
-	});
-
-	return {
-		result: true,
-		totalPrice,
-	};
-}
-
 // criar cada OrderItem referente a um item do carrinho
 async function createOrderItems(itemsArray, orderID) {
 	// pra cada item, criar no bd
 	itemsArray.forEach(async (i) => {
-		await OrderItem.createOrderItem({
+		await OrderItem.createOrderItem({ // MOCK!!
 			itemID: i.item.id,
 			orderID,
 			quantity:
@@ -107,7 +39,7 @@ async function createOrder(req, res) {
 			address, // {objeto endereço}
 			status, // botar só na criação (tirar esperando pagamento)
 			itemsPrice,
-			feePrice,
+			fee,
 			items, // verificar qual vai ser o nome do atributo
 		} = req.body;
 
@@ -123,7 +55,7 @@ async function createOrder(req, res) {
 		}
 
 		// verificar se o items é valido
-		const isItemsValid = await itemsArrayValidation(items);
+		const isItemsValid = await validations.itemsArrayValidation(items);
 		if (isItemsValid.result === false) {
 			res.status(400).send({
 				code: isItemsValid.code,
