@@ -1,15 +1,12 @@
-import { Operator, OperatorModel } from "../models/operator.js";
+import { Operator } from "../models/operator.js";
 import { responseCodes, validations } from "../resources/index.js";
 
 async function createOperator(req, res) {
 	try {
 		const { operatorType } = req.body;
-		console.log(`[createOperator] operatorType = ${operatorType}`);
 
 		// validar tipo de operador
 		if (!validations.operatorTypeValidation(operatorType)) {
-			console.log("[createOperator] !validations.operatorTypeValidation(operatorType)");
-
 			res.status(400).send({
 				code: responseCodes.invalidData,
 			});
@@ -18,8 +15,7 @@ async function createOperator(req, res) {
 
 		const newUser = { operatorType };
 
-		const createdUser = newUser; // enquanto o bd não está funcionando usar essa linha
-		// const createdUser = await Operator.createOperator(newUser);
+		const createdUser = await Operator.createOperator(newUser);
 
 		res.status(201).send({
 			code: responseCodes.created,

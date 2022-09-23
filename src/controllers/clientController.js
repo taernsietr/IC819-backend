@@ -1,5 +1,5 @@
 import { responseCodes, validations } from "../resources/index.js";
-// import { Client, ClientModel } from "../models/client.js";
+import { Client, ClientModel } from "../models/client.js";
 
 async function createClient(req, res) {
 	try {
@@ -34,14 +34,16 @@ async function createClient(req, res) {
 			return;
 		}
 
-		// enquanto não temos o sequelize essa parte não funciona
-		/*
 		const cpfAlreadyExists = await Client.getByCpf(cpf);
+		console.log(`cpfAlreadyExists = ${JSON.stringify(cpfAlreadyExists)}`);
+
 		const emailAlreadyExists = await Client.getByEmail(email);
+		console.log(`emailAlreadyExists = ${JSON.stringify(emailAlreadyExists)}`);
 
 		if (
 			cpfAlreadyExists.code !== responseCodes.success
 			|| cpfAlreadyExists.result instanceof ClientModel) {
+			console.log("cpf já existe");
 			res.status(400).send({
 				code: responseCodes.duplicatedUniqueData.cpf,
 			});
@@ -51,12 +53,15 @@ async function createClient(req, res) {
 		if (
 			emailAlreadyExists.code !== responseCodes.success
 			|| emailAlreadyExists.result instanceof ClientModel) {
+			console.log("email já existe");
+
 			res.status(400).send({
 				code: responseCodes.duplicatedUniqueData.email,
 			});
 			return;
 		}
-		*/
+
+		console.log("passou");
 
 		if (!passwordHash) {
 			res.status(400).send({
@@ -74,8 +79,7 @@ async function createClient(req, res) {
 			token: "",
 		};
 
-		const createdUser = newUser; // enquanto o bd não está funcionando usar essa linha
-		// const createdUser = await Client.createClient(newUser);
+		const createdUser = await Client.createClient(newUser);
 
 		res.status(201).send({
 			code: responseCodes.created,

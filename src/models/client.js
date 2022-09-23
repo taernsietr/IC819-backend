@@ -1,13 +1,45 @@
-import Sequelize from "sequelize";
-import db from "../db.js";
+import { DataTypes } from "sequelize";
+import { sequelize } from "../db.js";
 import { validations } from "../resources/index.js";
 
-// TODO: sequelize
-export const ClientModel = {};
+export const ClientModel = sequelize.define(
+	"Client",
+	{
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true,
+		},
+		name: {
+			type: DataTypes.STRING(128),
+			allowNull: false,
+		},
+		cpf: {
+			type: DataTypes.STRING(11),
+			allowNull: false,
+		},
+		email: {
+			type: DataTypes.STRING(32),
+			allowNull: false,
+		},
+		phone: {
+			type: DataTypes.STRING(11),
+			allowNull: false,
+		},
+		passwordHash: {
+			type: DataTypes.STRING(512),
+			allowNull: false,
+		},
+		token: {
+			type: DataTypes.STRING(128),
+			allowNull: true,
+		},
+	},
+);
 
 export const Client = {
 	createClient: async (data) => {
-		const createdUser = await	ClientModel.create({
+		const createdUser = await ClientModel.create({
 			name: data.name,
 			cpf: data.cpf,
 			email: data.email,
@@ -83,8 +115,8 @@ export const Client = {
 		return res;
 	},
 
-	// TODO: fazer no bd APENAS SE DER TEMPO! como ainda estamos trabalhanso só com cliente n logado n é prioridade
-	getByToken: async (token) => {
-		console.log(`find client by token ${token}`);
-	},
+	// // TODO: fazer no bd APENAS SE DER TEMPO! como ainda estamos trabalhanso só com cliente n logado n é prioridade
+	// getByToken: async (token) => {
+	// 	console.log(`find client by token ${token}`);
+	// },
 };

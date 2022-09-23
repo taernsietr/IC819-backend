@@ -1,31 +1,15 @@
 import { responseCodes, validations } from "../resources/index.js";
-import { Item } from "../models/item.js";
-import { OrderItem } from "../models/orderItem.js";
-import { orderStatus } from "../models/dataEnums.js"
-
-// const CartItem =	{
-// 	item: {
-// 		id: string,
-// 		name: string,
-// 		imageName: string,
-// 		description: string,
-// 		enable: boolean,
-// 		availableInStock: number,
-// 		value: number,
-// 		weight: number,
-// 	},
-// 	quantity: number,
-// };
+import { Order, OrderItemMethods } from "../models/order.js";
+import { orderStatus } from "../models/dataEnums.js";
 
 // criar cada OrderItem referente a um item do carrinho
 async function createOrderItems(itemsArray, orderID) {
 	// pra cada item, criar no bd
 	itemsArray.forEach(async (i) => {
-		await OrderItem.createOrderItem({ // MOCK!!
+		await OrderItemMethods.createOrderItem({
 			itemID: i.item.id,
 			orderID,
-			quantity:
-			i.quantity,
+			quantity: i.quantity,
 		});
 	});
 }
@@ -34,24 +18,15 @@ async function createOrderItems(itemsArray, orderID) {
 async function createOrder(req, res) {
 	try {
 		const {
+			address,
 			deliveryID,
-			address, // {objeto endereço}
-			status, // botar só na criação (tirar esperando pagamento)
 			itemsPrice,
 			fee,
 			items, // verificar qual vai ser o nome do atributo
 		} = req.body;
 
-		// validar o status do pedido
-		if (!validations.orderStatusValidation(status)) {
-			res.status(400).send({
-				code: responseCodes.invalidData,
-			});
-			return;
-		}
-
 		// verificar se o items é valido
-		const isItemsValid = await validations.itemsArrayValidation(items);
+		const isItemsValid = validations.itemsArrayValidation(items);
 		if (isItemsValid.result === false) {
 			res.status(400).send({
 				code: isItemsValid.code,
@@ -60,7 +35,7 @@ async function createOrder(req, res) {
 		}
 
 		// verificar se o preço total é válido
-		if (!itemsPrice === isItemsValid.totalPrice) { // Ajeitar nome
+		if (!itemsPrice === isItemsValid.itemsPrice) {
 			res.status(500).send({
 				code: responseCodes.unknownInternalError,
 			});
@@ -70,11 +45,9 @@ async function createOrder(req, res) {
 			deliveryID,
 			status: orderStatus[1], // confirmado
 			totalPrice: itemsPrice + fee,
-
 		};
 
-		const createdOrder = { id: "adhiudhai", ...newOrder }; // enquanto o bd não está funcionando usar essa linha
-		// const createdOrder = await Operator.createOperator(newOrder);
+		const createdOrder = await Order.createOrder(newOrder);
 
 		// com o pedido criado, temos que criar as instâncias de orderItem
 		const createdOrdemItems = await createOrderItems(items, createOrder.id);
